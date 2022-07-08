@@ -3,7 +3,9 @@ package envioemail.email;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -137,17 +139,33 @@ public class ObjetoEnviaeEmail {
 			corpoEmail.setText(textoEmail);
 		}
 		
-		/*Parte 2 do e-mail, que são os anexos em pdf*/
-		MimeBodyPart anexoEmail = new MimeBodyPart();
+		/*enviando uma lista de Pdf's*/
+		List<FileInputStream> arquivos = new ArrayList<FileInputStream>();
+		arquivos.add(simuladorDePdf());/*Poderia um certificado*/
+		arquivos.add(simuladorDePdf());/*Poderia ser um documento*/
+		arquivos.add(simuladorDePdf());/*Poderia ser uma nota fiscal*/
+		arquivos.add(simuladorDePdf());/*Poderia ser uma imagem*/
 		
-		/*Onde é passado o simuladorDePdf, você passa o seu arquivo gravado no banco de dados*/
-		anexoEmail.setDataHandler(new DataHandler(new ByteArrayDataSource(simuladorDePdf(), "application/pdf")));
-		anexoEmail.setFileName("arquivoAnexo.pdf");
 		
 		/*Parte 3 Junção do corpo do email com o anexo do email*/
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(corpoEmail);
-		multipart.addBodyPart(anexoEmail);
+		
+		int index = 1;
+		for (FileInputStream fileInputStream : arquivos) {
+			
+			/*Parte 2 do e-mail, que são os anexos em pdf*/
+			MimeBodyPart anexoEmail = new MimeBodyPart();
+			
+			/*Onde é passado o simuladorDePdf, você passa o seu arquivo gravado no banco de dados*/
+			anexoEmail.setDataHandler(new DataHandler(new ByteArrayDataSource(fileInputStream, "application/pdf")));
+			anexoEmail.setFileName("arquivoAnexo"+index+".pdf");
+			
+			
+			multipart.addBodyPart(anexoEmail);
+			index++;//realizar o incremento do index do arquivo
+		}
+		
 		
 		message.setContent(multipart);
 		
