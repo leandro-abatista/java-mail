@@ -36,7 +36,7 @@ public class ObjetoEnviaeEmail {
 		this.textoEmail = textoEmail;
 	}
 	
-	public void enviarEmail() throws Exception {
+	public void enviarEmail(boolean envioHtml) throws Exception {
 		
 		/**
 		 * Configuração das propriedades
@@ -69,7 +69,11 @@ public class ObjetoEnviaeEmail {
 		message.setRecipients(Message.RecipientType.TO, toUser);/*Email de destino, pode ser um email, ou uma lista de emails*/
 		message.setSubject(assuntoEmail);
 		message.setSentDate(new Date());
-		message.setText(textoEmail);
+		if (envioHtml) {
+			message.setContent(textoEmail, "text/html; chatset=UTF-8");
+		} else {
+			message.setText(textoEmail);
+		}
 		
 		
 		Transport.send(message);

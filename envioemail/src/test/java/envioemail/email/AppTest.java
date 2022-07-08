@@ -21,15 +21,32 @@ public class AppTest {
 	@Test
 	public void testeEmail() throws Exception {
 		
+		StringBuilder stringBuilderTextoEmail = new StringBuilder();
+		stringBuilderTextoEmail.append("<h2>Olá, tudo bem programador Java?</h2>, <br/>");
+		stringBuilderTextoEmail.append("<h3>Você está recebendo acesso ao portfólio do github de lheanndroaluno.</h3><br/>");
+		stringBuilderTextoEmail.append("<h3>Para ter acesso, clique no botão abaixo:</h3><br/>");
+		stringBuilderTextoEmail.append("<a target=\"_blank\" href=\"https://github.com/\""
+				+ " style=\"color:#2525a7; padding: 15px; text-align: center; text-decoration: none;"
+				+ " display: inline-block; border-radius: 30px; background-color: #00FF00;"
+				+ " font-size: 20px; font-family: 'ubuntu'; font-wight: bold;"
+				+ " box-shadow: 10px 5px 5px black; border: 3px solid #B8860B;"
+				+ " \""
+				+ " title=\"Acesso ao GitHub\">Acessar GitHub Leandro Amorim</a></br>");
+		
+		stringBuilderTextoEmail.append("<br/><br/>");
+		
+		stringBuilderTextoEmail.append("<br/><span style=\"font-size: 15px; font-wight: bold;"
+				+ " color: DarkSlateGray\">Ass.: Leandro Amorim - ArfaxTechSoft</span>");
+		
 		ObjetoEnviaeEmail objetoEnviaeEmail = 
 				new ObjetoEnviaeEmail(
-						"leandroamorimst@gmail.com", 
+						"leandroamorimst@gmail.com, leandroamorimpb@gmail.com, leandrobatista@si.fiponline.edu.br", 
 						"Leandro AMorim - ArfaxTechSoft", 
 						"Testando o E-mail com Java", 
-						"Esse texto é a descrição do meu e-mail de teste."
+						stringBuilderTextoEmail.toString()
 						);
 		
-		objetoEnviaeEmail.enviarEmail();
+		objetoEnviaeEmail.enviarEmail(true);
 		
 		/*Caso o email não esteja sendo enviado então,
 		 * coloque um tempo de espera, mas, isso só pode
