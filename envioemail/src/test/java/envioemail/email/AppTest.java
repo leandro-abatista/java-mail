@@ -46,7 +46,7 @@ public class AppTest {
 						stringBuilderTextoEmail.toString()
 						);
 		
-		objetoEnviaeEmail.enviarEmail(true);
+		objetoEnviaeEmail.enviarEmailAnexo(true);
 		
 		/*Caso o email não esteja sendo enviado então,
 		 * coloque um tempo de espera, mas, isso só pode
