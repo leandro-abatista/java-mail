@@ -41,7 +41,7 @@ public class AppTest {
 		ObjetoEnviaeEmail objetoEnviaeEmail = 
 				new ObjetoEnviaeEmail(
 						"leandroamorimst@gmail.com, leandroamorimpb@gmail.com, leandrobatista@si.fiponline.edu.br", 
-						"Leandro AMorim - ArfaxTechSoft", 
+						"Leandro Amorim - ArfaxTechSoft", 
 						"Testando o E-mail com Java", 
 						stringBuilderTextoEmail.toString()
 						);
