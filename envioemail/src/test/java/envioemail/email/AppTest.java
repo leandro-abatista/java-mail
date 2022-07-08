@@ -2,16 +2,21 @@ package envioemail.email;
 
 import java.util.Properties;
 
+import javax.mail.Address;
 import javax.mail.Authenticator;
+import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
 
 public class AppTest {
 	
 	private String userName = "leandroamorimst@gmail.com";
-	private String userPassword = "Leandro#1989";
+	private String userPassword = "isnwccicumbjmvxg";
 
 	@Test
 	public void testeEmail() throws Exception {
@@ -41,7 +46,21 @@ public class AppTest {
 				}
 			});
 			
-			System.out.println(session);
+			/*Estabelecemos para quem iremos enviar*/
+			Address[] toUser = 
+					InternetAddress.parse("leandroamorimst@gmail,leandroamorimpb@gmail.com,leandrobatista@si.fiponline.edu.br");
+			
+			
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(userName));/*Quem está enviando*/
+			message.setRecipients(Message.RecipientType.TO, toUser);/*Email de destino, pode ser um email, ou uma lista de emails*/
+			message.setSubject("Chegou email enviado com Java");
+			message.setDescription("Teste");
+			message.setText("Olá programador, você acaba de receber um e-mail enviado com Java do curso Formação Web do Alex");
+			
+			
+			Transport.send(message);
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
